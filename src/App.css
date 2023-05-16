@@ -79,7 +79,7 @@ nav{
   text-decoration: none;
 }
 
-.speed, .size{
+.speed, .size, .array-input{
   display: flex;
   justify-content: center;
   align-items: center;
@@ -89,6 +89,20 @@ nav{
 
 input[type='number']{
   width: 100px;
+  height: 30px;
+  border-radius: 5px;
+  border: none;
+  outline: none;
+  padding: 0 10px;
+  font-size: 1rem;
+  font-weight: 500;
+  box-shadow: 0 5px 7px rgba(0,0,0,0.1);
+  background: #464646;
+  color: #fff;
+}
+
+input[type='text']{
+  width: 200px;
   height: 30px;
   border-radius: 5px;
   border: none;
