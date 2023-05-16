@@ -11,6 +11,7 @@ function BubbleSort(){
     const [elements, setElements] = useState<Element[]>([]);
     const [speed, setSpeed] = useState<number>(10);
     const [size, setSize] = useState<number>(10);
+    const [array, setArray] = useState<string>('');
 
     useEffect(() => {
         generateElements(size);
@@ -27,10 +28,11 @@ function BubbleSort(){
         for(let i = 0; i < n; i++){
             newElements.push({
                 value: Math.floor(Math.random() * 700),
-                color: `hsl(${hue * i}, 60%, 50%)`
+                color: `hsl(${hue * i}, 50%, 50%)`
             });
         }
         setElements(newElements);
+        setArray(newElements.map((element) => element.value).join(','));
     }
 
     const sleep = (ms: number) => {
@@ -69,6 +71,23 @@ function BubbleSort(){
         setSpeed(parseInt(e.target.value));
     }
 
+    const handleArrayChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+        setArray(e.target.value);
+
+        // Extract all the numbers from the input
+        const numbers = e.target.value.split(',').map((num) => parseInt(num));
+        const newElements: Element[] = [];
+        const hue = 360 / numbers.length;
+        for(let i = 0; i < numbers.length; i++){
+            newElements.push({
+                value: numbers[i],
+                color: `hsl(${hue * i}, 50%, 50%)`
+            });
+        }
+        setElements(newElements);
+        setSize(numbers.length);
+    }
+
     return(
         <div className='container'>
             <nav>
@@ -81,6 +100,10 @@ function BubbleSort(){
                     <input type="number" name="size" id="size" placeholder='Size of array..' value={size} onChange={handleSizeChange} min="1" max="50"/>
                 </div>
                 <Link to='/' className='logo'>Bubble Sort</Link>
+                <div className="array-input">
+                    <label htmlFor="array-input">Array</label>
+                    <input type="text" name="array" id="array-input" placeholder='Enter comma separated array..' value={array} onChange={handleArrayChange}/> 
+                </div>
                 <button onClick={() => generateElements(size)} className='generate'>Generate new array</button>
                 <button onClick={() => bubbleSort()} className='sort'>Sort the array</button>
             </nav>
